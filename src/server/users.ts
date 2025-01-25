@@ -34,7 +34,7 @@ export async function getUsers(params?: ParamsType) {
     const pages = Math.ceil(total / parseInt(limit));
 
     return { success: true, data: users, pages };
-  } catch (error) {
+  } catch {
     return { success: false, data: null, pages: 0 };
   }
 }

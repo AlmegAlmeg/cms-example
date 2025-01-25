@@ -1,11 +1,9 @@
 import { prisma } from '@/lib/prisma';
 import { faker } from '@faker-js/faker';
-import { User } from '@prisma/client';
 
 export async function GET() {
   try {
     const users = faker.helpers.multiple(createDummyUser, { count: 2000 });
-    // console.log(users[0]);
 
     await prisma.user.deleteMany();
 
@@ -14,9 +12,7 @@ export async function GET() {
     });
 
     return new Response(JSON.stringify(allUsers), { status: 200 });
-    // return new Response('Success', { status: 200 });
   } catch (error) {
-    console.log(error);
     return new Response(JSON.stringify(error), { status: 500 });
   }
 }

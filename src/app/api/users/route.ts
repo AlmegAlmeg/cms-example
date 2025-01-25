@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
     };
 
     return new Response(JSON.stringify(response), { status: 200 });
-  } catch (error) {
+  } catch {
     return new Response(JSON.stringify({ success: false, data: null }), { status: 500 });
   }
   // return new Response('Hello, World!', { status: 200 });
