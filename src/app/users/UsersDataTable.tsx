@@ -9,6 +9,7 @@ import { useRef } from 'react';
 import { Plus } from 'lucide-react';
 import { Pagination } from '../components/Pagination';
 import { LimitSelect } from '../components/LimitSelect';
+import { useSetQuery } from '@/hooks/use-set-query';
 
 interface UsersDataTableProps<TValue> {
   columns: ColumnDef<User, TValue>[];
@@ -18,10 +19,12 @@ interface UsersDataTableProps<TValue> {
 
 export function UsersDataTable<TValue>({ columns, data, pages }: UsersDataTableProps<TValue>) {
   const searchRef = useRef<HTMLInputElement>(null);
+  const { pushRoute } = useSetQuery();
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (!searchRef.current || !searchRef.current.value) return;
+    if (!searchRef.current) return;
+    pushRoute('search', searchRef.current.value || '');
   }
 
   return (

@@ -16,6 +16,8 @@ export function Pagination({ pages }: { pages: number }) {
   const { pushRoute } = useSetQuery();
   const page = Number(params.get('page') || 1);
 
+  if (pages === 1) return null;
+
   return (
     <AppPagination className="justify-end">
       <PaginationContent>

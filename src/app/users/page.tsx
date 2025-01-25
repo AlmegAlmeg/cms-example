@@ -13,6 +13,7 @@ export default async function UsersPage({
   const { data, success, pages } = await getUsers({
     page: params?.page as string,
     limit: params?.limit as string,
+    search: params?.search as string,
   });
   if (!success || !data) redirect('/');
 
