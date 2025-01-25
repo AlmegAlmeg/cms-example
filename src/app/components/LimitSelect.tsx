@@ -8,12 +8,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { usePathname, useSearchParams, useRouter } from 'next/navigation';
+import { useSetQuery } from '@/hooks/use-set-query';
+import { useSearchParams } from 'next/navigation';
 
 export function LimitSelect() {
-  const pathname = usePathname();
-  const router = useRouter();
-
+  const { pushRoute } = useSetQuery();
   const params = useSearchParams();
   const options = [10, 25, 50, 100];
 
@@ -24,14 +23,11 @@ export function LimitSelect() {
   })();
 
   function selectPageLimit(value: string) {
-    const newParams = new URLSearchParams(Array.from(params.entries()));
-    newParams.set('limit', value);
-
-    router.push(`${pathname}?${newParams.toString()}`);
+    pushRoute('limit', value);
   }
 
   return (
-    <Select onValueChange={selectPageLimit}>
+    <Select onValueChange={selectPageLimit} value={limit.toString()}>
       <SelectTrigger className="w-[70px]">
         <SelectValue defaultValue={limit} />
       </SelectTrigger>

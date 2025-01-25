@@ -8,7 +8,6 @@ import { Button } from '@/components/ui/button';
 import { useRef } from 'react';
 import { Plus } from 'lucide-react';
 import { Pagination } from '../components/Pagination';
-import { Select } from '@/components/ui/select';
 import { LimitSelect } from '../components/LimitSelect';
 
 interface UsersDataTableProps<TValue> {

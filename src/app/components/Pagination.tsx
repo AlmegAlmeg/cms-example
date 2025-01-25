@@ -8,31 +8,42 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from '@/components/ui/pagination';
+import { useSetQuery } from '@/hooks/use-set-query';
 import { useSearchParams } from 'next/navigation';
 
 export function Pagination({ pages }: { pages: number }) {
   const params = useSearchParams();
-  const page = params.get('page') || 1;
+  const { pushRoute } = useSetQuery();
+  const page = Number(params.get('page') || 1);
+
   return (
     <AppPagination className="justify-end">
       <PaginationContent>
-        <PaginationItem>
-          <PaginationPrevious href="#" />
+        {page > 1 && (
+          <PaginationItem className="cursor-pointer">
+            <PaginationPrevious onClick={() => pushRoute('page', page - 1)} />
+          </PaginationItem>
+        )}
+        {page > 1 && (
+          <PaginationItem className="cursor-pointer">
+            <PaginationLink onClick={() => pushRoute('page', page - 1)}>{page - 1}</PaginationLink>
+          </PaginationItem>
+        )}
+
+        <PaginationItem className="cursor-pointer">
+          <PaginationLink isActive>{page}</PaginationLink>
         </PaginationItem>
-        <PaginationItem>
-          <PaginationLink href="#">1</PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLink href="#" isActive>
-            2
-          </PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLink href="#">3</PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationNext href="#" />
-        </PaginationItem>
+        {page < pages && (
+          <PaginationItem className="cursor-pointer">
+            <PaginationLink onClick={() => pushRoute('page', page + 1)}>{page + 1}</PaginationLink>
+          </PaginationItem>
+        )}
+
+        {page < pages && (
+          <PaginationItem className="cursor-pointer">
+            <PaginationNext onClick={() => pushRoute('page', page + 1)} />
+          </PaginationItem>
+        )}
       </PaginationContent>
     </AppPagination>
   );
